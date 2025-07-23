@@ -3,8 +3,8 @@ import z from "zod";
 import { ProfileSchema } from "@/typesAndSchemas/Profile";
 
 type LoginInfo = {
-   phoneNo?: string;
    email?: string;
+   phoneNo?: number;
    password: string;
 };
 
