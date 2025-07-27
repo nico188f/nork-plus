@@ -74,10 +74,8 @@ export default function LoginForm(loginFormProps: LoginFormProps) {
                value.loginIdentifier,
             );
 
-            let profile: Profile | undefined;
-
             try {
-               profile = await loginHandler({
+               const profile: Profile = await loginHandler({
                   email: loginIdentifierIsPhoneNumber
                      ? undefined
                      : loginIdentifier,
@@ -86,13 +84,14 @@ export default function LoginForm(loginFormProps: LoginFormProps) {
                      : undefined,
                   password,
                });
+
+               toast.success("Login Successful", {
+                  description: `Welcome to NORK+ ${profile.name}!`,
+               });
+               loginFormProps.onSubmit();
             } catch (e) {
                return "Email/Phone number or password is incorrect.";
             }
-            toast.success("Login Successful", {
-               description: `Welcome to NORK+ ${profile.name}!`,
-            });
-            loginFormProps.onSubmit();
          },
       },
    });
