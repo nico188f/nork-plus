@@ -1,7 +1,7 @@
 import z from "zod";
 
 export const ProfileSchema = z.object({
-   memberId: z.number(),
+   memberId: z.int(),
    name: z.string(),
    token: z.string(),
 });
