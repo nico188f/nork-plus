@@ -17,4 +17,4 @@ export const BookingSchema = z.object({
    }),
 });
 
-export type Profile = z.infer<typeof BookingSchema>;
+export type Booking = z.infer<typeof BookingSchema>;
