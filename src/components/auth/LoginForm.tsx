@@ -2,11 +2,13 @@ import { useForm } from "@tanstack/react-form";
 import z from "zod";
 import { useState } from "react";
 import { AlertCircleIcon } from "lucide-react";
+import { toast } from "sonner";
 import { Label } from "../ui/label";
 import { Input } from "../ui/input";
 import { Button } from "../ui/button";
 import { Alert, AlertDescription, AlertTitle } from "../ui/alert";
 import type { AnyFieldApi } from "@tanstack/react-form";
+import type { Profile } from "@/typesAndSchemas/Profile";
 import loginHandler from "@/utils/auth/loginHandler";
 
 type CancelableLoginFormProps = {
@@ -73,7 +75,7 @@ export default function LoginForm(loginFormProps: LoginFormProps) {
             );
 
             try {
-               await loginHandler({
+               const profile: Profile = await loginHandler({
                   email: loginIdentifierIsPhoneNumber
                      ? undefined
                      : loginIdentifier,
@@ -82,10 +84,14 @@ export default function LoginForm(loginFormProps: LoginFormProps) {
                      : undefined,
                   password,
                });
+
+               toast.success("Login Successful", {
+                  description: `Welcome to NORK+ ${profile.name}!`,
+               });
+               loginFormProps.onSubmit();
             } catch (e) {
                return "Email/Phone number or password is incorrect.";
             }
-            loginFormProps.onSubmit();
          },
       },
    });
@@ -132,7 +138,6 @@ export default function LoginForm(loginFormProps: LoginFormProps) {
                <div className="items-center gap-3 grid mb-5 w-full">
                   <Label htmlFor={field.name}>Email or Phone number</Label>
                   <Input
-                     type="email"
                      placeholder="Email or Phone number"
                      id={field.name}
                      name={field.name}

@@ -21,4 +21,7 @@ export default async function (loginHandlerInfo: LoginHandlerInfo) {
    setLocalStorageMemberId(profile.memberId);
    setLocalStorageName(onlyName);
    setLocalStorageAuthToken(profile.token);
+
+   profile.name = onlyName;
+   return profile;
 }
