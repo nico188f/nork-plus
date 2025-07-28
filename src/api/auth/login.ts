@@ -9,7 +9,7 @@ type LoginInfo = {
    password: string;
 };
 
-const Data = z.object({
+const LoginResponse = z.object({
    profiles: z.array(ProfileSchema),
 });
 
@@ -27,7 +27,7 @@ export default async (loginInfo: LoginInfo) => {
       organization: norkApi.org.id,
    });
 
-   const data = Data.parse(res.data);
+   const data = LoginResponse.parse(res.data);
 
    return data.profiles[0];
 };

@@ -15,7 +15,7 @@ type GetBookingParams = {
 
 const apiResource = "publicBooking/public/getBookings";
 
-const Data = z.array(RoomBookingSchema);
+const GetBookingResponse = z.array(RoomBookingSchema);
 
 export default async (
    getBookingParams: GetBookingParams,
@@ -27,7 +27,7 @@ export default async (
       to: getBookingParams.to.toISOString().slice(0, 19),
    });
 
-   const data = Data.parse(res.data);
+   const data = GetBookingResponse.parse(res.data);
 
    return data;
 };
