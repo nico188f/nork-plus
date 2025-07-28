@@ -3,7 +3,7 @@ import {
    setLocalStorageMemberId,
    setLocalStorageName,
 } from "../wrapper/localStorageWrapper";
-import login from "@/api/login";
+import login from "@/api/auth/login";
 
 type LoginHandlerInfo = {
    email?: string;
