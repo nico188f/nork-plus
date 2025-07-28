@@ -37,14 +37,14 @@ export const ResourceNameSchema = z.union([
 
 export type ResourceName = z.infer<typeof ResourceNameSchema>;
 
-const resourceNameToIdMap: Record<ResourceName, ResourceId> = {
+const resourceNameToIdMap = {
    [kitchenAndHall276.name]: kitchenAndHall276.id,
    [kitchen176.name]: kitchen176.id,
    [hall176.name]: hall176.id,
    [cinema.name]: cinema.id,
-   ...Object.fromEntries(fitnessRooms.map((room) => [room.id])),
+   ...Object.fromEntries(fitnessRooms.map((room) => [room.name, room.id])),
    [groupRoom1.name]: groupRoom1.id,
-};
+} as Record<ResourceName, ResourceId>;
 
 export function resourceToResourceId(resourceName: ResourceName): ResourceId {
    return resourceNameToIdMap[resourceName];
