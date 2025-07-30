@@ -1,12 +1,12 @@
 import z from "zod";
 
 import { BookingSchema } from "./Booking";
-import { ResourceIdSchema, ResourceNameSchema } from "./Room";
+import { RoomIdSchema, RoomNameSchema } from "./Room";
 
 export const RoomBookingSchema = z.object({
    resource: z.object({
-      id: ResourceIdSchema,
-      name: ResourceNameSchema,
+      id: RoomIdSchema,
+      name: RoomNameSchema,
    }),
    bookings: z.array(BookingSchema).nullable(),
 });

@@ -2,10 +2,10 @@ import { default as axios } from "axios";
 import z from "zod";
 import { norkApi } from "./../apiConfig";
 import type { RoomBooking } from "@/typesAndSchemas/RoomBookings";
-import type { ResourceId } from "@/typesAndSchemas/Room";
+import type { RoomId } from "@/typesAndSchemas/Room";
 import { RoomBookingSchema } from "@/typesAndSchemas/RoomBookings";
 
-type RoomList = Array<{ id: ResourceId }>;
+type RoomList = Array<{ id: RoomId }>;
 
 type GetBookingParams = {
    roomList: RoomList;
