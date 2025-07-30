@@ -1,4 +1,5 @@
 import z from "zod";
+import { Room } from "@/classes/Room";
 
 // Rooms
 // Kitchen and Hall 276
@@ -80,18 +81,6 @@ export const RoomRuleSchema = z.union([
 
 export type RoomRule = z.infer<typeof RoomRuleSchema>;
 
-export class Room {
-   Id: RoomId;
-   Name: RoomName;
-   Rule: RoomRule;
-
-   constructor(id: RoomId, name: RoomName, rule: RoomRule) {
-      this.Id = id;
-      this.Name = name;
-      this.Rule = rule;
-   }
-}
-
 export const rooms: Record<string, Room> = {
    kitchenAndHall276: new Room(
       KITCHEN_AND_HALL_276_ID,
@@ -122,11 +111,3 @@ export const rooms: Record<string, Room> = {
       FITNESS_ROOM_4_RULE,
    ),
 } as const;
-
-const roomList: Readonly<Array<Room>> = Object.values(rooms);
-
-export function getRoomFromRoomId(id: RoomId): Room {
-   const room = roomList.find((r) => r.Id === id);
-   if (room === undefined) throw new Error("Invalid Room id.");
-   return room;
-}
