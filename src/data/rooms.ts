@@ -1,5 +1,3 @@
-// Rooms
-// Kitchen and Hall 276
 export const KITCHEN_AND_HALL_276 = {
    id: 20114,
    name: "Book 276 Kitchen/Hall",
