@@ -3,7 +3,7 @@ import {
    setLocalStorageMemberId,
    setLocalStorageName,
 } from "../wrapper/localStorageWrapper";
-import login from "@/api/login";
+import login from "@/api/auth/login";
 
 type LoginHandlerInfo = {
    email?: string;
@@ -21,4 +21,7 @@ export default async function (loginHandlerInfo: LoginHandlerInfo) {
    setLocalStorageMemberId(profile.memberId);
    setLocalStorageName(onlyName);
    setLocalStorageAuthToken(profile.token);
+
+   profile.name = onlyName;
+   return profile;
 }
