@@ -97,7 +97,6 @@ export default function LoginForm(loginFormProps: LoginFormProps) {
                });
                loginFormProps.onSubmit();
             } catch (e) {
-               console.log(e);
                return "Email/Phone number or password is incorrect.";
             }
          },
@@ -105,7 +104,6 @@ export default function LoginForm(loginFormProps: LoginFormProps) {
    });
 
    const handleCancel = (cancel: () => void) => {
-      form.clearFieldValues;
       form.setErrorMap({ onBlur: undefined, onChange: undefined });
       cancel();
    };
@@ -171,7 +169,7 @@ export default function LoginForm(loginFormProps: LoginFormProps) {
             }}
             children={(field) => (
                <div className="items-center gap-3 grid mb-5 w-full">
-                  <Label htmlFor={field.name}>Email or Phone number</Label>
+                  <Label htmlFor={field.name}>Password</Label>
                   <Input
                      type="password"
                      placeholder="Password"
