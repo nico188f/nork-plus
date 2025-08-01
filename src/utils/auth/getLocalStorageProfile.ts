@@ -10,7 +10,7 @@ export default function (): Profile | undefined {
    const name = getLocalStorageUserName();
    const token = getLocalStorageUserAuthToken();
 
-   if (memberId !== null && name !== null && token !== null) {
+   if (memberId && name && token) {
       return {
          memberId,
          name,
