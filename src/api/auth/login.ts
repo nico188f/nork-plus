@@ -1,6 +1,7 @@
 import { default as axios } from "axios";
 import z from "zod";
 import { norkApi } from "../apiConfig";
+import type { Profile } from "@/models/Profile";
 import { ProfileSchema } from "@/models/Profile";
 
 type LoginInfo = {
@@ -15,10 +16,10 @@ const LoginResponse = z.object({
 
 const apiResource = "heimdall/rest/auth/member";
 
-export default async (loginInfo: LoginInfo) => {
+export default async (loginInfo: LoginInfo): Promise<Profile> => {
    const { password, email, phoneNo } = loginInfo;
 
-   const res = await axios.post(norkApi.url + apiResource, {
+   const res = await axios.post(`${norkApi.url}${apiResource}`, {
       country: norkApi.countryCode,
       phoneNumber: phoneNo,
       email: email,

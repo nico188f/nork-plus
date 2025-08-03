@@ -1,14 +1,5 @@
 import type { RoomId, RoomName, RoomRule } from "@/models/Room";
-import {
-   CINEMA,
-   FITNESS_ROOM_1,
-   FITNESS_ROOM_2,
-   FITNESS_ROOM_3,
-   FITNESS_ROOM_4,
-   HALL_176,
-   KITCHEN_176,
-   KITCHEN_AND_HALL_276,
-} from "@/data/rooms";
+import { ROOMS } from "@/data/rooms";
 
 export class Room {
    readonly Id: RoomId;
@@ -21,14 +12,14 @@ export class Room {
       this.Rule = room.rule;
    }
 
-   static KitchenAndHall276 = new Room(KITCHEN_AND_HALL_276);
-   static Kitchen176 = new Room(KITCHEN_176);
-   static Hall176 = new Room(HALL_176);
-   static Cinema = new Room(CINEMA);
-   static FitnessRoom1 = new Room(FITNESS_ROOM_1);
-   static FitnessRoom2 = new Room(FITNESS_ROOM_2);
-   static FitnessRoom3 = new Room(FITNESS_ROOM_3);
-   static FitnessRoom4 = new Room(FITNESS_ROOM_4);
+   static KitchenAndHall276 = new Room(ROOMS.KITCHEN_AND_HALL_276);
+   static Kitchen176 = new Room(ROOMS.KITCHEN_176);
+   static Hall176 = new Room(ROOMS.HALL_176);
+   static Cinema = new Room(ROOMS.CINEMA);
+   static FitnessRoom1 = new Room(ROOMS.FITNESS_ROOM_1);
+   static FitnessRoom2 = new Room(ROOMS.FITNESS_ROOM_2);
+   static FitnessRoom3 = new Room(ROOMS.FITNESS_ROOM_3);
+   static FitnessRoom4 = new Room(ROOMS.FITNESS_ROOM_4);
 
    private static roomList = [
       Room.KitchenAndHall276,
