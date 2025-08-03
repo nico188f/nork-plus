@@ -8,7 +8,7 @@ import { Input } from "../ui/input";
 import { Button } from "../ui/button";
 import { Alert, AlertDescription, AlertTitle } from "../ui/alert";
 import type { AnyFieldApi } from "@tanstack/react-form";
-import type { Profile } from "@/typesAndSchemas/Profile";
+import type { Profile } from "@/models/Profile";
 import loginHandler from "@/utils/auth/loginHandler";
 
 type CancelableLoginFormProps = {

@@ -1,9 +1,9 @@
 import { default as axios } from "axios";
 import z from "zod";
 import { norkApi } from "./../apiConfig";
-import type { RoomBooking } from "@/typesAndSchemas/RoomBookings";
-import type { RoomId } from "@/typesAndSchemas/Room";
-import { RoomBookingSchema } from "@/typesAndSchemas/RoomBookings";
+import type { RoomBooking } from "@/models/RoomBookings";
+import type { RoomId } from "@/models/Room";
+import { RoomBookingSchema } from "@/models/RoomBookings";
 
 type RoomList = Array<{ id: RoomId }>;
 

@@ -1,7 +1,7 @@
 import { default as axios } from "axios";
 import z from "zod";
 import { norkApi } from "../apiConfig";
-import { ProfileSchema } from "@/typesAndSchemas/Profile";
+import { ProfileSchema } from "@/models/Profile";
 
 type LoginInfo = {
    email?: string;

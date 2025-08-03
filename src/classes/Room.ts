@@ -1,4 +1,4 @@
-import type { RoomId, RoomName, RoomRule } from "@/typesAndSchemas/Room";
+import type { RoomId, RoomName, RoomRule } from "@/models/Room";
 import {
    CINEMA,
    FITNESS_ROOM_1,
