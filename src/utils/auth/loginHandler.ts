@@ -1,8 +1,4 @@
-import {
-   setLocalStorageAuthToken,
-   setLocalStorageMemberId,
-   setLocalStorageName,
-} from "../wrapper/localStorageWrapper";
+import type { Profile } from "@/typesAndSchemas/Profile";
 import login from "@/api/auth/login";
 
 type LoginHandlerInfo = {
@@ -11,17 +7,18 @@ type LoginHandlerInfo = {
    password: string;
 };
 
-export default async function (loginHandlerInfo: LoginHandlerInfo) {
+export default async function (
+   loginHandlerInfo: LoginHandlerInfo,
+   setProfile: (profile: Profile) => void,
+) {
    const profile = await login(loginHandlerInfo);
 
    // remove address from string
    const firstDashIndex = profile.name.indexOf("-");
    const onlyName = profile.name.substring(firstDashIndex + 1);
-
-   setLocalStorageMemberId(profile.memberId);
-   setLocalStorageName(onlyName);
-   setLocalStorageAuthToken(profile.token);
-
    profile.name = onlyName;
+
+   setProfile(profile);
+
    return profile;
 }
