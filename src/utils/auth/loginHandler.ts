@@ -1,4 +1,4 @@
-import type { Profile } from "@/typesAndSchemas/Profile";
+import type { Profile } from "@/models/Profile";
 import login from "@/api/auth/login";
 
 type LoginHandlerInfo = {

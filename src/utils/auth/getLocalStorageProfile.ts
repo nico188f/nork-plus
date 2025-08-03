@@ -3,7 +3,7 @@ import {
    getLocalStorageUserMemberId,
    getLocalStorageUserName,
 } from "../wrapper/localStorageUserWrapper";
-import type { Profile } from "@/typesAndSchemas/Profile";
+import type { Profile } from "@/models/Profile";
 
 export default function (): Profile | undefined {
    const memberId = getLocalStorageUserMemberId();

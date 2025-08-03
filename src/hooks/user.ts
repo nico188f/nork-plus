@@ -1,5 +1,5 @@
 import { createContext, useContext } from "react";
-import type { Profile } from "@/typesAndSchemas/Profile";
+import type { Profile } from "@/models/Profile";
 
 export type LoggedInUserState = {
    isLoggedIn: true;
