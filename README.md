@@ -1,4 +1,4 @@
-# Welcome to Nork+! 
+# Welcome to Nork+
 
 Nork+ is a new and improved website to interact with the booking system at [nordjyske kollegium](http://nork.dk/).
 
@@ -8,5 +8,5 @@ To run this application:
 
 ```bash
 bun install
-bun dev  
+bun dev
 ```
