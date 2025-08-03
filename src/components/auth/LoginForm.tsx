@@ -10,6 +10,7 @@ import { Alert, AlertDescription, AlertTitle } from "../ui/alert";
 import type { AnyFieldApi } from "@tanstack/react-form";
 import type { Profile } from "@/typesAndSchemas/Profile";
 import loginHandler from "@/utils/auth/loginHandler";
+import { useAuthContext } from "@/hooks/user";
 
 type CancelableLoginFormProps = {
    canCancel: true;
@@ -61,6 +62,8 @@ function validateLoginIdentifier(loginIdentifier: string): string | undefined {
 }
 
 export default function LoginForm(loginFormProps: LoginFormProps) {
+   const { setProfile } = useAuthContext();
+
    const form = useForm({
       defaultValues: {
          loginIdentifier: "",
@@ -75,15 +78,19 @@ export default function LoginForm(loginFormProps: LoginFormProps) {
             );
 
             try {
-               const profile: Profile = await loginHandler({
-                  email: loginIdentifierIsPhoneNumber
-                     ? undefined
-                     : loginIdentifier,
-                  phoneNo: loginIdentifierIsPhoneNumber
-                     ? parseInt(loginIdentifier)
-                     : undefined,
-                  password,
-               });
+               const profile: Profile = await loginHandler(
+                  {
+                     email: loginIdentifierIsPhoneNumber
+                        ? undefined
+                        : loginIdentifier,
+                     phoneNo: loginIdentifierIsPhoneNumber
+                        ? parseInt(loginIdentifier)
+                        : undefined,
+                     password,
+                  },
+
+                  setProfile,
+               );
 
                toast.success("Login Successful", {
                   description: `Welcome to NORK+ ${profile.name}!`,
@@ -97,7 +104,6 @@ export default function LoginForm(loginFormProps: LoginFormProps) {
    });
 
    const handleCancel = (cancel: () => void) => {
-      form.clearFieldValues;
       form.setErrorMap({ onBlur: undefined, onChange: undefined });
       cancel();
    };
@@ -163,7 +169,7 @@ export default function LoginForm(loginFormProps: LoginFormProps) {
             }}
             children={(field) => (
                <div className="items-center gap-3 grid mb-5 w-full">
-                  <Label htmlFor={field.name}>Email or Phone number</Label>
+                  <Label htmlFor={field.name}>Password</Label>
                   <Input
                      type="password"
                      placeholder="Password"
