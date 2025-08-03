@@ -20,7 +20,7 @@ type CancelableLoginFormProps = {
 
 type LoginFormProps =
    | {
-        canCancel: boolean;
+        canCancel: false;
         onSubmit: () => void;
      }
    | CancelableLoginFormProps;
@@ -203,12 +203,7 @@ export default function LoginForm(loginFormProps: LoginFormProps) {
                         type="button"
                         variant={"outline"}
                         disabled={isSubmitting}
-                        onClick={() =>
-                           handleCancel(
-                              (loginFormProps as CancelableLoginFormProps)
-                                 .onCancel,
-                           )
-                        }
+                        onClick={() => handleCancel(loginFormProps.onCancel)}
                      >
                         Cancel
                      </Button>
