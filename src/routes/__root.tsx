@@ -3,12 +3,13 @@ import { TanStackRouterDevtools } from "@tanstack/react-router-devtools";
 
 import { Toaster } from "sonner";
 import { useState } from "react";
+import axios from "axios";
 import Header from "../components/Header";
 
 import TanStackQueryLayout from "../integrations/tanstack-query/layout.tsx";
 
 import type { QueryClient } from "@tanstack/react-query";
-import type { Profile } from "@/typesAndSchemas/Profile.ts";
+import type { Profile } from "@/models/Profile.ts";
 import type {
    Auth,
    LoggedInUserState,
@@ -40,6 +41,9 @@ export const Route = createRootRouteWithContext<MyRouterContext>()({
       const [auth, setAuth] = useState((): Auth => {
          const profile = getLocalStorageProfile();
 
+         if (profile)
+            axios.defaults.headers.common["Authorization"] = profile.token;
+
          return {
             ...createAuthState(profile),
             setProfile,
@@ -47,8 +51,13 @@ export const Route = createRootRouteWithContext<MyRouterContext>()({
       });
 
       function setProfile(profile: Profile | undefined) {
-         if (profile === undefined) clearLocalStorageUser();
-         else setLocalStorageUserProfile(profile);
+         if (profile) {
+            axios.defaults.headers.common["Authorization"] = profile.token;
+            setLocalStorageUserProfile(profile);
+         } else {
+            axios.defaults.headers.common["Authorization"] = undefined;
+            clearLocalStorageUser();
+         }
 
          setAuth((prevAuth) => ({
             ...prevAuth,
