@@ -1,20 +1,28 @@
 import z from "zod";
-import { ROOMS } from "@/data/rooms";
+import { BookingSlotScheduleData } from "@/data/BookingSlotScheduleData";
 
-export const RoomIdSchema = z.union([
-   ...Object.values(ROOMS).map((room) => z.literal(room.id)),
+export const BookingSlotScheduleIdSchema = z.union([
+   ...Object.values(BookingSlotScheduleData).map((room) => z.literal(room.id)),
 ]);
 
-export type RoomId = z.infer<typeof RoomIdSchema>;
+export type BookingSlotScheduleId = z.infer<typeof BookingSlotScheduleIdSchema>;
 
-export const RoomNameSchema = z.union([
-   ...Object.values(ROOMS).map((room) => z.literal(room.name)),
+export const BookingSlotScheduleNameSchema = z.union([
+   ...Object.values(BookingSlotScheduleData).map((room) =>
+      z.literal(room.name),
+   ),
 ]);
 
-export type RoomName = z.infer<typeof RoomNameSchema>;
+export type BookingSlotScheduleName = z.infer<
+   typeof BookingSlotScheduleNameSchema
+>;
 
-export const RoomRuleSchema = z.union([
-   ...Object.values(ROOMS).map((room) => z.literal(room.rule)),
+export const BookingSlotScheduleRuleSchema = z.union([
+   ...Object.values(BookingSlotScheduleData).map((room) =>
+      z.literal(room.rule),
+   ),
 ]);
 
-export type RoomRule = z.infer<typeof RoomRuleSchema>;
+export type BookingSlotScheduleRule = z.infer<
+   typeof BookingSlotScheduleRuleSchema
+>;

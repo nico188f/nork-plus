@@ -9,8 +9,8 @@ import { Button } from "../ui/button";
 import { Alert, AlertDescription, AlertTitle } from "../ui/alert";
 import type { AnyFieldApi } from "@tanstack/react-form";
 import type { Profile } from "@/models/Profile";
-import loginHandler from "@/utils/auth/loginHandler";
 import { useAuthContext } from "@/hooks/user";
+import login from "@/api/auth/login";
 
 type CancelableLoginFormProps = {
    canCancel: true;
@@ -78,19 +78,17 @@ export default function LoginForm(loginFormProps: LoginFormProps) {
             );
 
             try {
-               const profile: Profile = await loginHandler(
-                  {
-                     email: loginIdentifierIsPhoneNumber
-                        ? undefined
-                        : loginIdentifier,
-                     phoneNo: loginIdentifierIsPhoneNumber
-                        ? parseInt(loginIdentifier)
-                        : undefined,
-                     password,
-                  },
+               const profile: Profile = await login({
+                  email: loginIdentifierIsPhoneNumber
+                     ? undefined
+                     : loginIdentifier,
+                  phoneNo: loginIdentifierIsPhoneNumber
+                     ? parseInt(loginIdentifier)
+                     : undefined,
+                  password,
+               });
 
-                  setProfile,
-               );
+               setProfile(profile);
 
                toast.success("Login Successful", {
                   description: `Welcome to NORK+ ${profile.name}!`,

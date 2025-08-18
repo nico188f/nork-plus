@@ -1,4 +1,5 @@
 import z from "zod";
+import { UserNameSchema } from "./UserNameSchema";
 
 export const BookingSchema = z.object({
    id: z.int(),
@@ -13,6 +14,7 @@ export const BookingSchema = z.object({
    title: z.string(),
    info: z.string(),
    bookedTo: z.object({
+      name: UserNameSchema,
       id: z.int(),
    }),
 });

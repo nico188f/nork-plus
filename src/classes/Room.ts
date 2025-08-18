@@ -1,41 +1,112 @@
-import type { RoomId, RoomName, RoomRule } from "@/models/Room";
-import { ROOMS } from "@/data/rooms";
+import { ChefHat, Dumbbell, Film, PartyPopper, Users } from "lucide-react";
+import BookingSlotSchedule from "./BookingSlotSchedule";
+import type { LucideProps } from "lucide-react";
+import type {
+   BookingSlotScheduleId,
+   BookingSlotScheduleName,
+   BookingSlotScheduleRule,
+} from "@/models/Room";
+import type { Booking } from "@/models/Booking";
+import { BookingSlotScheduleData } from "@/data/BookingSlotScheduleData";
+import getBookings from "@/api/booking/getBookings";
 
-export class Room {
-   readonly Id: RoomId;
-   readonly Name: RoomName;
-   readonly Rule: RoomRule;
+export default class Room {
+   public readonly name: string;
+   public readonly icon: React.ForwardRefExoticComponent<
+      Omit<LucideProps, "ref">
+   >;
 
-   constructor(room: { id: RoomId; name: RoomName; rule: RoomRule }) {
-      this.Id = room.id;
-      this.Name = room.name;
-      this.Rule = room.rule;
+   private readonly bookingSlotSchedules: Array<BookingSlotSchedule> = [];
+
+   private static readonly rooms: Array<Room> = [];
+   public static get allRooms(): ReadonlyArray<Room> {
+      return Room.rooms;
    }
 
-   static KitchenAndHall276 = new Room(ROOMS.KITCHEN_AND_HALL_276);
-   static Kitchen176 = new Room(ROOMS.KITCHEN_176);
-   static Hall176 = new Room(ROOMS.HALL_176);
-   static Cinema = new Room(ROOMS.CINEMA);
-   static FitnessRoom1 = new Room(ROOMS.FITNESS_ROOM_1);
-   static FitnessRoom2 = new Room(ROOMS.FITNESS_ROOM_2);
-   static FitnessRoom3 = new Room(ROOMS.FITNESS_ROOM_3);
-   static FitnessRoom4 = new Room(ROOMS.FITNESS_ROOM_4);
-
-   private static roomList = [
-      Room.KitchenAndHall276,
-      Room.Kitchen176,
-      Room.Hall176,
-      Room.Cinema,
-      Room.FitnessRoom1,
-      Room.FitnessRoom2,
-      Room.FitnessRoom3,
-      Room.FitnessRoom4,
-   ];
-
-   static GetById(id: RoomId): Room {
-      const room = Room.roomList.find((r) => r.Id === id);
-
-      if (room === undefined) throw new Error(`Invalid Room id: ${id}`);
-      return room;
+   public get bookings(): ReadonlyArray<Booking> {
+      return this.bookingSlotSchedules.flatMap(
+         (slotSchedule) => slotSchedule.Bookings,
+      );
    }
+
+   private getBookingSlotScheduleById(
+      slotId: BookingSlotScheduleId,
+   ): BookingSlotSchedule | undefined {
+      return this.bookingSlotSchedules.find((slot) => slot.Id === slotId);
+   }
+
+   private constructor(
+      name: string,
+      icon: React.ForwardRefExoticComponent<Omit<LucideProps, "ref">>,
+      bookingSlotSchedules: Array<{
+         id: BookingSlotScheduleId;
+         name: BookingSlotScheduleName;
+         rule: BookingSlotScheduleRule;
+      }>,
+   ) {
+      this.name = name;
+      this.icon = icon;
+
+      for (const slot of bookingSlotSchedules) {
+         const slotSchedule = new BookingSlotSchedule(this, slot);
+         this.bookingSlotSchedules.push(slotSchedule);
+      }
+
+      Room.rooms.push(this);
+   }
+
+   public async getCurrentBookings(
+      from: Date,
+      to: Date,
+   ): Promise<ReadonlyArray<Booking>> {
+      const bookings = await getBookings({
+         bookingSlotSchedules: this.bookingSlotSchedules,
+         from,
+         to,
+      });
+
+      for (const slotBooking of bookings) {
+         if (slotBooking.bookings === null) continue;
+
+         const bookingSlot = this.getBookingSlotScheduleById(
+            slotBooking.resource.id,
+         );
+
+         if (bookingSlot === undefined) {
+            console.warn(
+               `No booking slot schedule found for id: ${slotBooking.resource.id}`,
+            );
+            continue;
+         }
+
+         bookingSlot.Bookings = slotBooking.bookings;
+      }
+
+      return this.bookings;
+   }
+
+   static readonly KitchenAndHall276 = new Room(
+      "Kitchen/Hall 276",
+      PartyPopper,
+      [BookingSlotScheduleData.KitchenAndHall276],
+   );
+
+   static readonly Kitchen176 = new Room("Kitchen 176", ChefHat, [
+      BookingSlotScheduleData.Kitchen176,
+   ]);
+
+   static readonly Hall176 = new Room("Hall 176", Users, [
+      BookingSlotScheduleData.Hall176,
+   ]);
+
+   static readonly Cinema = new Room("Cinema", Film, [
+      BookingSlotScheduleData.Cinema,
+   ]);
+
+   static readonly Fitness = new Room("Fitness Room", Dumbbell, [
+      BookingSlotScheduleData.FitnessRoom1,
+      BookingSlotScheduleData.FitnessRoom2,
+      BookingSlotScheduleData.FitnessRoom3,
+      BookingSlotScheduleData.FitnessRoom4,
+   ]);
 }

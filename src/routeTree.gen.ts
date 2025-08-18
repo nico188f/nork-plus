@@ -10,7 +10,9 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as LoginRouteImport } from './routes/login'
+import { Route as BookingTestRouteImport } from './routes/booking-test'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as TestBookingRouteImport } from './routes/test.booking'
 import { Route as DemoFormSimpleRouteImport } from './routes/demo.form.simple'
 import { Route as DemoFormAddressRouteImport } from './routes/demo.form.address'
 
@@ -19,9 +21,19 @@ const LoginRoute = LoginRouteImport.update({
   path: '/login',
   getParentRoute: () => rootRouteImport,
 } as any)
+const BookingTestRoute = BookingTestRouteImport.update({
+  id: '/booking-test',
+  path: '/booking-test',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const TestBookingRoute = TestBookingRouteImport.update({
+  id: '/test/booking',
+  path: '/test/booking',
   getParentRoute: () => rootRouteImport,
 } as any)
 const DemoFormSimpleRoute = DemoFormSimpleRouteImport.update({
@@ -37,34 +49,61 @@ const DemoFormAddressRoute = DemoFormAddressRouteImport.update({
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/booking-test': typeof BookingTestRoute
   '/login': typeof LoginRoute
+  '/test/booking': typeof TestBookingRoute
   '/demo/form/address': typeof DemoFormAddressRoute
   '/demo/form/simple': typeof DemoFormSimpleRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/booking-test': typeof BookingTestRoute
   '/login': typeof LoginRoute
+  '/test/booking': typeof TestBookingRoute
   '/demo/form/address': typeof DemoFormAddressRoute
   '/demo/form/simple': typeof DemoFormSimpleRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/booking-test': typeof BookingTestRoute
   '/login': typeof LoginRoute
+  '/test/booking': typeof TestBookingRoute
   '/demo/form/address': typeof DemoFormAddressRoute
   '/demo/form/simple': typeof DemoFormSimpleRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/login' | '/demo/form/address' | '/demo/form/simple'
+  fullPaths:
+    | '/'
+    | '/booking-test'
+    | '/login'
+    | '/test/booking'
+    | '/demo/form/address'
+    | '/demo/form/simple'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/login' | '/demo/form/address' | '/demo/form/simple'
-  id: '__root__' | '/' | '/login' | '/demo/form/address' | '/demo/form/simple'
+  to:
+    | '/'
+    | '/booking-test'
+    | '/login'
+    | '/test/booking'
+    | '/demo/form/address'
+    | '/demo/form/simple'
+  id:
+    | '__root__'
+    | '/'
+    | '/booking-test'
+    | '/login'
+    | '/test/booking'
+    | '/demo/form/address'
+    | '/demo/form/simple'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  BookingTestRoute: typeof BookingTestRoute
   LoginRoute: typeof LoginRoute
+  TestBookingRoute: typeof TestBookingRoute
   DemoFormAddressRoute: typeof DemoFormAddressRoute
   DemoFormSimpleRoute: typeof DemoFormSimpleRoute
 }
@@ -78,11 +117,25 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof LoginRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/booking-test': {
+      id: '/booking-test'
+      path: '/booking-test'
+      fullPath: '/booking-test'
+      preLoaderRoute: typeof BookingTestRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/': {
       id: '/'
       path: '/'
       fullPath: '/'
       preLoaderRoute: typeof IndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/test/booking': {
+      id: '/test/booking'
+      path: '/test/booking'
+      fullPath: '/test/booking'
+      preLoaderRoute: typeof TestBookingRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/demo/form/simple': {
@@ -104,7 +157,9 @@ declare module '@tanstack/react-router' {
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  BookingTestRoute: BookingTestRoute,
   LoginRoute: LoginRoute,
+  TestBookingRoute: TestBookingRoute,
   DemoFormAddressRoute: DemoFormAddressRoute,
   DemoFormSimpleRoute: DemoFormSimpleRoute,
 }
