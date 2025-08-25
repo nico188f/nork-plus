@@ -2,16 +2,16 @@ import { useState } from "react";
 import { useQuery } from "@tanstack/react-query";
 import { toast } from "sonner";
 import { endOfWeek, setHours, startOfWeek } from "date-fns";
-import LargeCalenderControls from "./largeCalenderControls/LargeCalenderControls";
-import LargeCalenderWeekBody from "./largeCalenderBody/LargeCalenderWeekBody";
+import LargeCalendarControls from "./largeCalendarControls/LargeCalendarControls";
+import LargeCalendarWeekBody from "./largeCalendarBody/LargeCalendarWeekBody";
 import Room from "@/classes/Room";
-import { LargeCalenderContext } from "@/hooks/largeCalenderContext";
+import { LargeCalendarContext } from "@/hooks/largeCalendarContext";
 
 const defaultRoom = Room.Fitness;
 const initialDate = new Date();
 
-export default function LargeCalender() {
-   const [calenderContext, setContext] = useState<LargeCalenderContext>({
+export default function LargeCalendar() {
+   const [calendarContext, setContext] = useState<LargeCalendarContext>({
       currentRoom: defaultRoom,
       setCurrentRoom: (room) =>
          setContext((prevContext) => ({
@@ -28,11 +28,11 @@ export default function LargeCalender() {
 
       getActiveWeek: (): { from: Date; to: Date } => ({
          from: setHours(
-            startOfWeek(calenderContext.activeDate, { weekStartsOn: 1 }),
+            startOfWeek(calendarContext.activeDate, { weekStartsOn: 1 }),
             2,
          ),
          to: setHours(
-            endOfWeek(calenderContext.activeDate, { weekStartsOn: 1 }),
+            endOfWeek(calendarContext.activeDate, { weekStartsOn: 1 }),
             25,
          ),
       }),
@@ -50,14 +50,14 @@ export default function LargeCalender() {
       onPreviewSuccess: () => {},
    });
 
-   const { from, to } = calenderContext.getActiveWeek();
+   const { from, to } = calendarContext.getActiveWeek();
 
    const { error, isPending } = useQuery({
-      queryKey: ["bookings", calenderContext.currentRoom.name, from, to],
-      queryFn: () => calenderContext.currentRoom.updateAndGetBookings(from, to),
+      queryKey: ["bookings", calendarContext.currentRoom.name, from, to],
+      queryFn: () => calendarContext.currentRoom.updateAndGetBookings(from, to),
    });
 
-   if (isPending !== calenderContext.isPending)
+   if (isPending !== calendarContext.isPending)
       setContext((prevState) => ({ ...prevState, isPending }));
 
    if (error) {
@@ -67,9 +67,9 @@ export default function LargeCalender() {
    }
 
    return (
-      <LargeCalenderContext.Provider value={calenderContext}>
-         <LargeCalenderControls />
-         <LargeCalenderWeekBody />
-      </LargeCalenderContext.Provider>
+      <LargeCalendarContext.Provider value={calendarContext}>
+         <LargeCalendarControls />
+         <LargeCalendarWeekBody />
+      </LargeCalendarContext.Provider>
    );
 }

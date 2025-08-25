@@ -8,7 +8,7 @@ type PreviewEvent =
      }
    | undefined;
 
-export type LargeCalenderContext = {
+export type LargeCalendarContext = {
    currentRoom: Room;
    setCurrentRoom: (room: Room) => void;
 
@@ -26,17 +26,17 @@ export type LargeCalenderContext = {
    onPreviewSuccess: () => void;
 };
 
-export const LargeCalenderContext = createContext<
-   LargeCalenderContext | undefined
+export const LargeCalendarContext = createContext<
+   LargeCalendarContext | undefined
 >(undefined);
 
-export function useLargeCalenderContext() {
-   const largeCalenderContext = useContext(LargeCalenderContext);
+export function useLargeCalendarContext() {
+   const largeCalendarContext = useContext(LargeCalendarContext);
 
-   if (largeCalenderContext === undefined)
+   if (largeCalendarContext === undefined)
       throw new Error(
-         "There is no LargeCalenderContext within the current scope.",
+         "There is no LargeCalendarContext within the current scope.",
       );
 
-   return largeCalenderContext;
+   return largeCalendarContext;
 }

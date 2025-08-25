@@ -1,8 +1,8 @@
-import LargeCalenderDay from "./LargeCalenderDay";
-import { useLargeCalenderContext } from "@/hooks/largeCalenderContext";
+import LargeCalendarDay from "./LargeCalendarDay";
+import { useLargeCalendarContext } from "@/hooks/largeCalendarContext";
 
-export default function LargeCalenderWeekBody() {
-   const { getActiveWeek } = useLargeCalenderContext();
+export default function LargeCalendarWeekBody() {
+   const { getActiveWeek } = useLargeCalendarContext();
 
    const { from, to } = getActiveWeek();
 
@@ -18,7 +18,7 @@ export default function LargeCalenderWeekBody() {
    return (
       <div className="gap-1 grid grid-cols-7">
          {days.map((day) => (
-            <LargeCalenderDay key={day.toISOString()} day={day} />
+            <LargeCalendarDay key={day.toISOString()} day={day} />
          ))}
       </div>
    );

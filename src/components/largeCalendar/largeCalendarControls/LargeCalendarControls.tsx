@@ -1,6 +1,6 @@
 import RoomSelector from "./RoomSelector";
 
-export default function LargeCalenderControls() {
+export default function LargeCalendarControls() {
    return (
       <div className="m-5">
          <RoomSelector />

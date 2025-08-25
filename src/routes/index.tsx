@@ -1,10 +1,10 @@
 import { createFileRoute } from "@tanstack/react-router";
-import LargeCalender from "@/components/largeCalender/LargeCalender";
+import LargeCalendar from "@/components/largeCalendar/LargeCalendar";
 
 export const Route = createFileRoute("/")({
    component: App,
 });
 
 function App() {
-   return <LargeCalender />;
+   return <LargeCalendar />;
 }

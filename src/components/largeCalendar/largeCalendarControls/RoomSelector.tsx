@@ -1,9 +1,9 @@
 import Room from "@/classes/Room";
 import { ToggleGroup, ToggleGroupItem } from "@/components/ui/toggle-group";
-import { useLargeCalenderContext } from "@/hooks/largeCalenderContext";
+import { useLargeCalendarContext } from "@/hooks/largeCalendarContext";
 
 export default function RoomSelector() {
-   const { currentRoom, setCurrentRoom } = useLargeCalenderContext();
+   const { currentRoom, setCurrentRoom } = useLargeCalendarContext();
 
    return (
       <ToggleGroup

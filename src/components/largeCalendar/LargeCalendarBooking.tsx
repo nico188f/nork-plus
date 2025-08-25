@@ -1,11 +1,11 @@
 import { differenceInMinutes, format } from "date-fns";
 import type { Booking } from "@/models/Booking";
 
-type LargeCalenderBookingProps = { booking: Booking };
+type LargeCalendarBookingProps = { booking: Booking };
 
-export default function LargeCalenderBooking({
+export default function LargeCalendarBooking({
    booking,
-}: LargeCalenderBookingProps) {
+}: LargeCalendarBookingProps) {
    return (
       <div
          className="absolute bg-chart-1 opacity-30 w-full"

@@ -1,14 +1,14 @@
 import { isSameDay } from "date-fns";
-import LargeCalenderBooking from "../LargeCalenderBooking";
+import LargeCalendarBooking from "../LargeCalendarBooking";
 import type { JSX } from "react";
-import { useLargeCalenderContext } from "@/hooks/largeCalenderContext";
+import { useLargeCalendarContext } from "@/hooks/largeCalendarContext";
 
-type LargeCalenderDayProps = {
+type LargeCalendarDayProps = {
    day: Date;
 };
 
-export default function LargeCalenderDay({ day }: LargeCalenderDayProps) {
-   const { currentRoom, intervalMinutes } = useLargeCalenderContext();
+export default function LargeCalendarDay({ day }: LargeCalendarDayProps) {
+   const { currentRoom, intervalMinutes } = useLargeCalendarContext();
 
    const bookings = currentRoom.bookings.filter(
       (booking) =>
@@ -36,7 +36,7 @@ export default function LargeCalenderDay({ day }: LargeCalenderDayProps) {
          <div>{timeSlots}</div>
          <div>
             {bookings.map((booking) => (
-               <LargeCalenderBooking key={booking.id} booking={booking} />
+               <LargeCalendarBooking key={booking.id} booking={booking} />
             ))}
          </div>
       </div>
