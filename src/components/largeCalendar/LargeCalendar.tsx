@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useQuery } from "@tanstack/react-query";
 import { toast } from "sonner";
 import { endOfWeek, setHours, startOfWeek } from "date-fns";
@@ -57,8 +57,11 @@ export default function LargeCalendar() {
       queryFn: () => calendarContext.currentRoom.updateAndGetBookings(from, to),
    });
 
-   if (isPending !== calendarContext.isPending)
-      setContext((prevState) => ({ ...prevState, isPending }));
+   useEffect(() => {
+      if (isPending !== calendarContext.isPending) {
+         setContext((prevState) => ({ ...prevState, isPending }));
+      }
+   }, [isPending, calendarContext.isPending]);
 
    if (error) {
       toast.error("Error", {
