@@ -11,12 +11,15 @@ export const BookingSchema = z.object({
       .int()
       .min(0)
       .transform((value) => new Date(value)),
-   title: z.string(),
-   info: z.string(),
-   bookedTo: z.object({
-      name: UserNameSchema,
-      id: z.int(),
-   }),
+   title: UserNameSchema,
+   bookedTo: z.union([
+      z
+         .object({
+            id: z.int(),
+         })
+         .transform((p) => p.id),
+      z.null(),
+   ]),
 });
 
 export type Booking = z.infer<typeof BookingSchema>;

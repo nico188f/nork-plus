@@ -55,10 +55,7 @@ export default class Room {
       Room.rooms.push(this);
    }
 
-   public async getCurrentBookings(
-      from: Date,
-      to: Date,
-   ): Promise<ReadonlyArray<Booking>> {
+   public async updateAndGetBookings(from: Date, to: Date) {
       const bookings = await getBookings({
          bookingSlotSchedules: this.bookingSlotSchedules,
          from,
@@ -81,8 +78,16 @@ export default class Room {
 
          bookingSlot.Bookings = slotBooking.bookings;
       }
-
       return this.bookings;
+   }
+
+   public static getRoomByName(name: string) {
+      const room = Room.allRooms.find((room) => room.name === name);
+
+      if (room === undefined)
+         throw Error(`Room with name ${name} does not exist.`);
+
+      return room;
    }
 
    static readonly KitchenAndHall276 = new Room(
